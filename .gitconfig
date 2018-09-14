@@ -1,17 +1,14 @@
-function git_setup {
-  rm ~/.gitconfig
-  echo "Creating .gitconfig"
-  cat > "${HOME}/.gitconfig" << EOF
 [http]
 	sslVerify = true
 
 [credential "https://github.com"]
-	username = yalmaty
+	username = artyomtkachenko
+	helper = cache --timeout=24000
 
 [core]
 	editor = vim
 	quotepath = false
-	
+
 [color]
 	ui = true
 
@@ -42,10 +39,8 @@ function git_setup {
 	insteadOf = git://github.com/
 
 [user]
-	name = yalmaty
+	name = Foo Bar
+	email = foo.bar
 
 [credential]
-	helper = cache --timeout=24000
-EOF
-  echo "Done"
-}
+	helper = osxkeychain

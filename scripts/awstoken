@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+DUR=14400
+
+case "$1" in
+    foo)
+        ADFS_IAM_ROLE=arn:aws:iam::foo:role/role
+        ;;
+    bar)
+        ADFS_IAM_ROLE=arn:aws:iam::bar:role/role
+        ;;
+
+    *)
+        echo "Usage:" >&2
+        echo "awstoken <my account>  # Where <my account> is either foo, bar"
+        echo ""
+
+        exit 1
+        ;;
+esac
+
+saml2aws login \
+--session-duration ${DUR} \
+--profile $1 \
+--username domain\\${ADFS_USERNAME} \
+--password $(security find-generic-password  -a ${ADFS_USERNAME} -s saml2adfs -w) \
+--skip-prompt \
+--role ${ADFS_IAM_ROLE}
