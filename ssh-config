@@ -1,0 +1,8 @@
+Host 8.8.8.8
+  User foo
+  IdentityFile /foo
+
+Host 9.9.*
+  User ec2-user
+  IdentityFile /foo
+  ProxyCommand ssh foo@8.8.8.8 -W %h:22
